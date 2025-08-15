@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online school GOSHACK</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-image: url("Fon.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            color: #143a5a; /* тёмно-синий для читаемости */
+        }
+        .main-block {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+        .header-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .logo {
+            width: 120px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .title-block {
+            flex: 1;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #f7d85c;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        .skills {
+            color: #f7d85c;
+            font-size: 1.2em;
+            margin-bottom: 0;
+        }
+        .info-block {
+            margin-bottom: 24px;
+            padding: 0;
+        }
+        .desc, .subjects {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+        }
+        .desc strong, .subjects strong {
+            color: #143a5a;
+        }
+        .subjects span {
+            color: #f7d85c;
+            font-weight: 700;
+        }
+        .free-block {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .free {
+            font-size: 1.3em;
+            color: #143a5a;
+            font-weight: 700;
+        }
+        .free span {
+            color: #d90000;
+            font-weight: 700;
+            font-size: 1.2em;
+            display: block;
+            margin-top: 4px;
+        }
+        .offers-block {
+            margin-bottom: 24px;
+        }
+        .yellow-box {
+            background: #ffe08a;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .yellow-box strong {
+            color: #143a5a;
+        }
+        .price {
+            color: #143a5a;
+            font-size: 1.5em;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+        .bonus-block {
+            margin-bottom: 24px;
+        }
+        .bonus {
+            background: #143a5a;
+            color: #ffe08a;
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .bonus span {
+            color: #ffe08a;
+            font-size: 1.2em;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .open-block {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .open {
+            color: #143a5a;
+            font-size: 1.9em;
+            margin-bottom: 10px;
+        }
+        .contacts-block {
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 24px;
+        }
+        .contacts strong {
+            color: #143a5a;
+        }
+        .contacts a {
+            color: #f7d85c;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        @media (max-width: 800px) {
+            .main-block {
+                max-width: 98vw;
+                padding: 12px 6vw;
+            }
+            .logo {
+                width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-block">
+        <div class="header-block">
+            <img src="logo.png" alt="GOSHACK Logo" class="logo">
+            <div class="title-block">
+                <h1>Online school<br>GOSHACK</h1>
+                <div class="skills">hack your skills</div>
+            </div>
+        </div>
+        <div class="info-block">
+            <div class="desc"><strong>Классы:</strong> 7, 8, 9, 10</div>
+            <div class="subjects"><strong>Предметы:</strong> <span>Биология, география, математика, физика, информатика, химия, русский, английский, всемирная история</span></div>
+        </div>
+        <div class="free-block">
+            <div class="free">Первые 2 занятия<br><span>АБСОЛЮТНО БЕСПЛАТНО</span></div>
+        </div>
+        <div class="offers-block">
+            <div class="yellow-box">
+                <strong>В случае записи до 20 сентября</strong><br>
+                первые 2 месяца <strong>1500тг/ч</strong>
+            </div>
+            <div class="yellow-box">
+                <strong>В случае записи после 20 сентября</strong><br>
+                первый месяц <strong>1700тг/ч</strong>
+            </div>
+            <div class="price"><strong>стандартная цена всего 2000тг/ч</strong></div>
+        </div>
+        <div class="bonus-block">
+            <div class="bonus">
+                <span>БОНУС 9 КЛАССНИКАМ!</span>
+                полноценная подготовка к<br>
+                <span>ГОС ЭКЗАМЕНАМ</span>
+            </div>
+        </div>
+        <div class="open-block">
+            <div class="open">Открываемся с 1 сентября</div>
+        </div>
+        <div class="contacts-block">
+            <div class="contacts">
+                <strong>tel:</strong> +7 771 844 1752<br>
+                <strong>tg:</strong> <a href="https://t.me/GoshackKz">@GoshackKz</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
