@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online school GOSHACK</title>
     <style>
+        /* ...existing code... */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap');
         body {
             margin: 0;
@@ -14,13 +15,84 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
-            color: #143a5a; /* тёмно-синий для читаемости */
+            color: #143a5a;
+        }
+        .wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 40px auto;
+            gap: 32px;
+            align-items: flex-start;
+            justify-content: center;
         }
         .main-block {
+            flex: 1 1 0;
             max-width: 700px;
-            margin: 40px auto;
             padding: 0 24px;
         }
+        .side-block {
+            flex: 0 0 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255,255,255,0.92);
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 24px 16px;
+            min-width: 260px;
+        }
+        .side-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #143a5a;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .gallery {
+            position: relative;
+            width: 100%;
+            max-width: 260px;
+            margin-bottom: 12px;
+        }
+        .gallery-img {
+            width: 100%;
+            max-width: 260px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .gallery-btn {
+            background: #ffe08a;
+            border: none;
+            color: #143a5a;
+            font-size: 1.6em;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            transition: background 0.2s;
+        }
+        .gallery-btn:hover {
+            background: #ffd700;
+        }
+        .gallery-name {
+            font-size: 1.1em;
+            color: #143a5a;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 4px;
+        }
+        /* ...existing code... */
         .header-block {
             display: flex;
             align-items: flex-start;
@@ -31,39 +103,64 @@
             width: 120px;
             border-radius: 50%;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            background: #ffe08a;
+            padding: 8px;
         }
         .title-block {
             flex: 1;
+            background: rgba(247,216,92,0.95);
+            border-radius: 16px;
+            padding: 18px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         h1 {
             font-size: 2.5em;
-            color: #f7d85c;
+            color: #143a5a;
             margin: 0 0 10px 0;
             font-weight: 700;
             line-height: 1.1;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.07);
         }
         .skills {
-            color: #f7d85c;
+            color: #d9a400;
             font-size: 1.2em;
             margin-bottom: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
         .info-block {
             margin-bottom: 24px;
             padding: 0;
         }
+        .info-inner {
+            background: rgba(255,255,255,0.92);
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 18px 20px;
+            margin-bottom: 18px;
+        }
         .desc, .subjects {
-            font-size: 1.5em;
+            font-size: 1.2em;
             margin-bottom: 8px;
         }
         .desc strong, .subjects strong {
             color: #143a5a;
         }
         .subjects span {
-            color: #f7d85c;
+            color: #ffcc00;
             font-weight: 700;
         }
         .free-block {
             margin-bottom: 24px;
+        }
+        .free-inner {
+            background: #ffe08a;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 18px 20px;
             text-align: center;
         }
         .free {
@@ -77,6 +174,7 @@
             font-size: 1.2em;
             display: block;
             margin-top: 4px;
+            letter-spacing: 1px;
         }
         .offers-block {
             margin-bottom: 24px;
@@ -88,15 +186,21 @@
             margin-bottom: 12px;
             font-size: 1.1em;
             box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            border-left: 8px solid #143a5a;
         }
         .yellow-box strong {
             color: #143a5a;
         }
         .price {
+            background: rgba(255,255,255,0.92);
+            border-radius: 12px;
             color: #143a5a;
-            font-size: 1.5em;
+            font-size: 1.1em;
             margin-bottom: 14px;
             text-align: center;
+            font-weight: 700;
+            padding: 10px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
         }
         .bonus-block {
             margin-bottom: 24px;
@@ -105,11 +209,12 @@
             background: #143a5a;
             color: #ffe08a;
             border-radius: 12px;
-            padding: 14px 18px;
-            font-size: 1.1em;
+            padding: 18px 20px;
+            font-size: 1.15em;
             font-weight: 700;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            border: 2px solid #ffe08a;
         }
         .bonus span {
             color: #ffe08a;
@@ -117,20 +222,32 @@
             font-weight: 700;
             display: block;
             margin-bottom: 4px;
+            letter-spacing: 1px;
         }
         .open-block {
             margin-bottom: 24px;
-            text-align: center;
         }
-        .open {
+        .open-inner {
+            background: #ffe08a;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 700;
             color: #143a5a;
-            font-size: 1.9em;
-            margin-bottom: 10px;
+            padding: 14px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
         }
         .contacts-block {
             text-align: center;
-            font-size: 1.1em;
+            font-size: 1.5em;
             margin-top: 24px;
+        }
+        .contacts-inner {
+            background: rgba(255,255,255,0.92);
+            border-radius: 12px;
+            display: inline-block;
+            padding: 14px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
         }
         .contacts strong {
             color: #143a5a;
@@ -140,6 +257,21 @@
             text-decoration: none;
             font-weight: 700;
         }
+        @media (max-width: 1000px) {
+            .wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+            }
+            .side-block {
+                margin-top: 32px;
+                min-width: 0;
+                width: 100%;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
         @media (max-width: 800px) {
             .main-block {
                 max-width: 98vw;
@@ -148,52 +280,102 @@
             .logo {
                 width: 80px;
             }
+            .title-block {
+                padding: 10px 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="main-block">
-        <div class="header-block">
-            <img src="logo.png" alt="GOSHACK Logo" class="logo">
-            <div class="title-block">
-                <h1>Online school<br>GOSHACK</h1>
-                <div class="skills">hack your skills</div>
+    <div class="wrapper">
+        <div class="main-block">
+            <div class="header-block">
+                <img src="logo.png" alt="GOSHACK Logo" class="logo">
+                <div class="title-block">
+                    <h1>Online school<br>GOSHACK</h1>
+                    <div class="skills">hack your skills</div>
+                </div>
+            </div>
+            <div class="info-block">
+                <div class="info-inner">
+                    <div class="desc"><strong>Классы:</strong> 7, 8, 9, 10</div>
+                    <div class="subjects"><strong>Предметы:</strong> <span>Биология, география, математика, физика, информатика, химия, русский, английский, всемирная история</span></div>
+                </div>
+            </div>
+            <div class="free-block">
+                <div class="free-inner">
+                    <div class="free">Первые 2 занятия<br><span>АБСОЛЮТНО БЕСПЛАТНО</span></div>
+                </div>
+            </div>
+            <div class="offers-block">
+                <div class="yellow-box">
+                    <strong>В случае записи до 20 сентября</strong><br>
+                    первые 2 месяца <strong>1500тг/ч</strong>
+                </div>
+                <div class="yellow-box">
+                    <strong>В случае записи после 20 сентября</strong><br>
+                    первый месяц <strong>1700тг/ч</strong>
+                </div>
+                <div class="price"><strong>стандартная цена всего 2000тг/ч</strong></div>
+            </div>
+            <div class="bonus-block">
+                <div class="bonus">
+                    <span>БОНУС 9 КЛАССНИКАМ!</span>
+                    полноценная подготовка к<br>
+                    <span>ГОС ЭКЗАМЕНАМ</span>
+                </div>
+            </div>
+            <div class="open-block">
+                <div class="open-inner">Открываемся с 1 сентября</div>
+            </div>
+            <div class="contacts-block">
+                <div class="contacts-inner">
+                    <strong>tel:</strong> +7 771 844 1752<br>
+                    <strong>Telegram:</strong> <a href="https://t.me/GoshackKz">@GoshackKz</a>
+                </div>
             </div>
         </div>
-        <div class="info-block">
-            <div class="desc"><strong>Классы:</strong> 7, 8, 9, 10</div>
-            <div class="subjects"><strong>Предметы:</strong> <span>Биология, география, математика, физика, информатика, химия, русский, английский, всемирная история</span></div>
-        </div>
-        <div class="free-block">
-            <div class="free">Первые 2 занятия<br><span>АБСОЛЮТНО БЕСПЛАТНО</span></div>
-        </div>
-        <div class="offers-block">
-            <div class="yellow-box">
-                <strong>В случае записи до 20 сентября</strong><br>
-                первые 2 месяца <strong>1500тг/ч</strong>
-            </div>
-            <div class="yellow-box">
-                <strong>В случае записи после 20 сентября</strong><br>
-                первый месяц <strong>1700тг/ч</strong>
-            </div>
-            <div class="price"><strong>стандартная цена всего 2000тг/ч</strong></div>
-        </div>
-        <div class="bonus-block">
-            <div class="bonus">
-                <span>БОНУС 9 КЛАССНИКАМ!</span>
-                полноценная подготовка к<br>
-                <span>ГОС ЭКЗАМЕНАМ</span>
-            </div>
-        </div>
-        <div class="open-block">
-            <div class="open">Открываемся с 1 сентября</div>
-        </div>
-        <div class="contacts-block">
-            <div class="contacts">
-                <strong>tel:</strong> +7 771 844 1752<br>
-                <strong>tg:</strong> <a href="https://t.me/GoshackKz">@GoshackKz</a>
+        <div class="side-block">
+            <div class="side-title">Наши преподаватели</div>
+            <div class="gallery">
+                <img src="teacher1.jpg" alt="Преподаватель" class="gallery-img" id="gallery-img">
+                <div class="gallery-controls">
+                    <button class="gallery-btn" id="prev-btn">&#8592;</button>
+                    <button class="gallery-btn" id="next-btn">&#8594;</button>
+                </div>
+                <div class="gallery-name" id="gallery-name">Иван Иванов</div>
             </div>
         </div>
     </div>
+    <script>
+        // Массив изображений и имён преподавателей
+        const teachers = [
+            { img: 'teacher1.jpg', name: 'Иван Иванов' },
+            { img: 'teacher2.jpg', name: 'Мария Петрова' },
+            { img: 'teacher3.jpg', name: 'Сергей Ким' }
+        ];
+        let current = 0;
+
+        const imgEl = document.getElementById('gallery-img');
+        const nameEl = document.getElementById('gallery-name');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function updateGallery() {
+            imgEl.src = teachers[current].img;
+            nameEl.textContent = teachers[current].name;
+        }
+
+        prevBtn.onclick = function() {
+            current = (current - 1 + teachers.length) % teachers.length;
+            updateGallery();
+        };
+        nextBtn.onclick = function() {
+            current = (current + 1) % teachers.length;
+            updateGallery();
+        };
+
+        updateGallery();
+    </script>
 </body>
 </html>
