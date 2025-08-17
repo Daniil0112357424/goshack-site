@@ -123,17 +123,14 @@
             text-decoration: none;
             font-weight: 700;
         }
-        @media (max-width: 900px) {
-            .teachers-list {
-                gap: 16px;
-            }
-            .teacher-card {
+        @media (max-width: 700px) {
+            .back-btn {
+                position: static !important;
+                display: block;
+                margin: 24px auto 0 auto !important;
                 width: 90vw;
                 max-width: 320px;
-            }
-            .contacts-block {
-                position: static;
-                margin: 24px auto 0 auto;
+                z-index: 10;
             }
         }
     </style>
