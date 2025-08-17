@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши преподаватели</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-image: url("Fon.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            color: #143a5a;
+        }
+        .teachers-wrapper {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 16px;
+            position: relative;
+        }
+        .back-btn {
+            display: block;
+            margin: 0 auto 24px auto;
+            padding: 10px 24px;
+            font-size: 1em;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #ffd700;
+            color: #143a5a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #ffe08a;
+        }
+        .teachers-title {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 2.5em;
+            color: #ffd700;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+        .teachers-desc {
+            text-align: center;
+            font-size: 1.5em;
+            color: #ffd700;
+            max-width: 800px;
+            margin: 20px auto;
+            line-height: 1.6;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .teachers-list {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .teacher-card {
+            background: rgba(255,255,255,0.92);
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            width: 280px;
+            padding: 24px 16px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .teacher-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        .teacher-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #143a5a;
+            margin-bottom: 8px;
+        }
+        .teacher-desc {
+            font-size: 1em;
+            color: #143a5a;
+        }
+        .contacts-block {
+            position: fixed;
+            top: 32px;
+            right: 32px;
+            z-index: 100;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .contacts-inner {
+            background: rgba(255,255,255,0.92);
+            border-radius: 12px;
+            display: inline-block;
+            padding: 14px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            font-family: 'Montserrat', Arial, sans-serif;
+            color: #143a5a;
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto;
+            word-break: break-word;
+        }
+        .contacts strong {
+            color: #143a5a;
+        }
+        .contacts a {
+            color: #f7d85c;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        @media (max-width: 900px) {
+            .teachers-list {
+                gap: 16px;
+            }
+            .teacher-card {
+                width: 90vw;
+                max-width: 320px;
+            }
+            .contacts-block {
+                position: static;
+                margin: 24px auto 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" style="position: absolute; left: 32px; top: 32px; margin: 0;" onclick="window.location.href='index.html'">На главную</button>
+    <div class="teachers-wrapper">
+        <h1 class="teachers-title">Наши преподаватели</h1>
+        <p class="teachers-desc">Мы гордимся нашей командой профессионалов, которые помогут вам достичь успеха в учебе и раскрыть ваш потенциал.</p>
+        <div class="teachers-list">
+            <div class="teacher-card">
+                <img src="Мария.jpeg" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-name">Болатова Амина</div>
+                <div class="teacher-desc">Эксперт по математике, физике, химии. Так же занимается английским. Любит объяснять сложные вещи простым языком.</div>
+            </div>
+            <div class="teacher-card">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-name">Сулейманов Ратмир</div>
+                <div class="teacher-desc">Преподаватель английского языка. Всегда поддержит и вдохновит на успех.</div>
+            </div>
+            <div class="teacher-card">
+                <img src="Назар.jpeg" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-name">Петров Назар</div>
+                <div class="teacher-desc">Специалист по информатике. Поможет разобраться в программировании с нуля.</div>
+            </div>
+            <div class="teacher-card">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-name">Хмелёвска Мария</div>
+                <div class="teacher-desc">Педагог по биологии. Увлекает наукой и помогает раскрыть потенциал каждого ученика.</div>
+            </div>
+            <div class="teacher-card">
+                <img src="https://randomuser.me/api/portraits/men/17.jpg" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-name">Пильганский Тимур</div>
+                <div class="teacher-desc">Учитель истории. Проводит увлекательные уроки и помогает понять прошлое.</div>
+            </div>
+            <div class="teacher-card">
+                <img src="Рустам.jpeg" alt="Фото преподавателя" class="teacher-photo">
+                <div class="teacher-name">Куртыбаев Рустам</div>
+                <div class="teacher-desc">Преподаватель химии. Объясняет сложные процессы простыми словами.</div>
+            </div>
+        </div>
+    </div>
+    <div class="contacts-block">
+        <div class="contacts-inner">
+            <strong>Tel:</strong> +7 771 844 1752<br>
+            <strong>Telegram:</strong> <a href="https://t.me/GoshackKz">@GoshackKz</a><br>
+            <strong>Inst:</strong> <a href="https://www.instagram.com/goshackkz?igsh=MTF5NHFneW5oenYxdQ==">@GoshackKz</a>
+        </div>
+    </div>
+</body>
+</html>

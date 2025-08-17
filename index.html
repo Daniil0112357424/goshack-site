@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online school GOSHACK</title>
     <style>
-        /* ...existing code... */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap');
         body {
             margin: 0;
@@ -40,6 +39,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.07);
             padding: 24px 16px;
             min-width: 260px;
+            margin-bottom: 24px;
         }
         .side-title {
             font-size: 1.6em;
@@ -48,51 +48,24 @@
             margin-bottom: 18px;
             text-align: center;
         }
-        .gallery {
-            position: relative;
-            width: 100%;
-            max-width: 260px;
-            margin-bottom: 12px;
-        }
-        .gallery-img {
-            width: 100%;
-            max-width: 260px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            object-fit: cover;
-            display: block;
-        }
-        .gallery-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 8px;
-        }
         .gallery-btn {
             background: #ffe08a;
             border: none;
             color: #143a5a;
-            font-size: 1.6em;
-            font-weight: bold;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
+            font-size: 1em;
+            font-weight: 700;
+            border-radius: 8px;
+            width: auto;
+            height: auto;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0,0,0,0.10);
             transition: background 0.2s;
+            margin-top: 24px;
+            padding: 10px 24px;
         }
         .gallery-btn:hover {
             background: #ffd700;
         }
-        .gallery-name {
-            font-size: 1.1em;
-            color: #143a5a;
-            font-weight: 700;
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 4px;
-        }
-        /* ...existing code... */
         .header-block {
             display: flex;
             align-items: flex-start;
@@ -175,6 +148,24 @@
             display: block;
             margin-top: 4px;
             letter-spacing: 1px;
+            animation: attract 1.2s infinite alternate;
+        }
+        @keyframes attract {
+            0% {
+                color: #d90000;
+                transform: scale(1);
+                text-shadow: 0 0 8px #fff7cc;
+            }
+            50% {
+                color: #ffcc00;
+                transform: scale(1.15);
+                text-shadow: 0 0 16px #ffe08a;
+            }
+            100% {
+                color: #d90000;
+                transform: scale(1);
+                text-shadow: 0 0 8px #fff7cc;
+            }
         }
         .offers-block {
             margin-bottom: 24px;
@@ -248,6 +239,12 @@
             display: inline-block;
             padding: 14px 24px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            font-family: 'Montserrat', Arial, sans-serif;
+            color: #143a5a;
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto;
+            word-break: break-word;
         }
         .contacts strong {
             color: #143a5a;
@@ -309,14 +306,14 @@
             </div>
             <div class="offers-block">
                 <div class="yellow-box">
-                    <strong>В случае записи до 20 сентября</strong><br>
-                    первые 2 месяца <strong>1500тг/ч</strong>
+                    <strong>При запси до 20 сентября</strong><br>
+                    первые 2 месяца <strong>1500тг/час</strong>
                 </div>
                 <div class="yellow-box">
-                    <strong>В случае записи после 20 сентября</strong><br>
-                    первый месяц <strong>1700тг/ч</strong>
+                    <strong>При записи после 20 сентября</strong><br>
+                    первый месяц <strong>1700тг/час</strong>
                 </div>
-                <div class="price"><strong>стандартная цена всего 2000тг/ч</strong></div>
+                <div class="price"><strong>стандартная цена всего 2000тг/час</strong></div>
             </div>
             <div class="bonus-block">
                 <div class="bonus">
@@ -328,54 +325,20 @@
             <div class="open-block">
                 <div class="open-inner">Открываемся с 1 сентября</div>
             </div>
-            <div class="contacts-block">
-                <div class="contacts-inner">
-                    <strong>tel:</strong> +7 771 844 1752<br>
-                    <strong>Telegram:</strong> <a href="https://t.me/GoshackKz">@GoshackKz</a>
-                </div>
-            </div>
         </div>
         <div class="side-block">
             <div class="side-title">Наши преподаватели</div>
-            <div class="gallery">
-                <img src="teacher1.jpg" alt="Преподаватель" class="gallery-img" id="gallery-img">
-                <div class="gallery-controls">
-                    <button class="gallery-btn" id="prev-btn">&#8592;</button>
-                    <button class="gallery-btn" id="next-btn">&#8594;</button>
+            <button class="gallery-btn" onclick="window.location.href='teachers.html'">
+                Перейти в галерею
+            </button>
+            <div class="contacts-block">
+                <div class="contacts-inner">
+                    <strong>Tel:</strong> +7 771 844 1752<br>
+                    <strong>Telegram:</strong> <a href="https://t.me/GoshackKz">@GoshackKz</a>
+                    <strong>Inst:</strong> <a href="https://www.instagram.com/goshackkz?igsh=MTF5NHFneW5oenYxdQ==">@GoshackKz</a>
                 </div>
-                <div class="gallery-name" id="gallery-name">Иван Иванов</div>
             </div>
         </div>
     </div>
-    <script>
-        // Массив изображений и имён преподавателей
-        const teachers = [
-            { img: 'teacher1.jpg', name: 'Иван Иванов' },
-            { img: 'teacher2.jpg', name: 'Мария Петрова' },
-            { img: 'teacher3.jpg', name: 'Сергей Ким' }
-        ];
-        let current = 0;
-
-        const imgEl = document.getElementById('gallery-img');
-        const nameEl = document.getElementById('gallery-name');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-
-        function updateGallery() {
-            imgEl.src = teachers[current].img;
-            nameEl.textContent = teachers[current].name;
-        }
-
-        prevBtn.onclick = function() {
-            current = (current - 1 + teachers.length) % teachers.length;
-            updateGallery();
-        };
-        nextBtn.onclick = function() {
-            current = (current + 1) % teachers.length;
-            updateGallery();
-        };
-
-        updateGallery();
-    </script>
 </body>
 </html>
