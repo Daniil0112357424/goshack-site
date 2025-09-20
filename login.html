@@ -107,6 +107,7 @@
         <form class="auth-form" id="registerForm" autocomplete="off">
             <div class="auth-title">Регистрация</div>
             <div class="auth-message" id="registerMessage"></div>
+            <input type="text" id="registerLogin" placeholder="Логин" required>
             <input type="email" id="registerEmail" placeholder="Email" required>
             <input type="password" id="registerPassword" placeholder="Пароль" required>
             <button type="button" id="registerBtn">Зарегистрироваться</button>
@@ -154,14 +155,15 @@
     const registerMessage = document.getElementById('registerMessage');
     const loginMessage = document.getElementById('loginMessage');
 
-    // Регистрация через Firebase
+    // Регистрация через Firebase с логином
     registerBtn.onclick = async function() {
         registerMessage.textContent = '';
         registerMessage.classList.remove('success');
+        const login = document.getElementById('registerLogin').value.trim();
         const email = document.getElementById('registerEmail').value.trim().toLowerCase();
         const password = document.getElementById('registerPassword').value;
 
-        if (!email || !password) {
+        if (!login || !email || !password) {
             registerMessage.textContent = 'Пожалуйста, заполните все поля.';
             return;
         }
@@ -172,6 +174,7 @@
 
         try {
             await firebase.auth().createUserWithEmailAndPassword(email, password);
+            await firebase.auth().currentUser.updateProfile({ displayName: login });
             window.location.href = "profile.html";
         } catch (e) {
             if (e.code === 'auth/email-already-in-use') {
@@ -184,7 +187,7 @@
         }
     };
 
-    // Вход через Firebase
+    // Вход через Firebase (только email и пароль)
     loginBtn.onclick = async function() {
         loginMessage.textContent = '';
         loginMessage.classList.remove('success');

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мессенджер</title>
+    <style>
+        body { font-family: 'Montserrat', Arial, sans-serif; background: #f7f7f7; margin: 0; }
+        .container { max-width: 700px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px #0001; padding: 24px; }
+        .search-block { display: flex; gap: 8px; margin-bottom: 20px; }
+        .chat-block { border: 1px solid #eee; border-radius: 8px; padding: 16px; min-height: 200px; margin-bottom: 16px; }
+        .messages { max-height: 250px; overflow-y: auto; margin-bottom: 12px; }
+        .msg { margin-bottom: 8px; }
+        .msg.me { text-align: right; color: #143a5a; }
+        .msg.other { text-align: left; color: #444; }
+        .send-block { display: flex; gap: 8px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Мессенджер</h2>
+    <div id="myLogin" style="margin-bottom: 18px; color: #888; font-size: 1.1em;"></div>
+    <div class="search-block">
+        <input type="text" id="searchLogin" placeholder="Логин пользователя">
+        <button id="findUserBtn">Найти</button>
+    </div>
+    <div id="chatWith"></div>
+    <div class="chat-block" id="chatBlock" style="display:none;">
+        <div class="messages" id="messages"></div>
+        <div class="send-block">
+            <input type="text" id="msgInput" placeholder="Сообщение..." style="flex:1;">
+            <button id="sendBtn">Отправить</button>
+        </div>
+    </div>
+    <div id="status"></div>
+</div>
+
+<!-- Firebase App (core SDK) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<!-- Firebase Auth SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<!-- Firebase Firestore SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyAnDLe2RXvIdZBSE6cYrcq_3ENRQqVyMjY",
+    authDomain: "goshack-4b984.firebaseapp.com",
+    projectId: "goshack-4b984",
+    storageBucket: "goshack-4b984.firebasestorage.app",
+    messagingSenderId: "672350768641",
+    appId: "1:672350768641:web:df83b4c4a64b3129cefa00",
+    measurementId: "G-VZ0M6Z26ZQ"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+let currentUser = null;
+let chatUser = null;
+let chatId = null;
+let unsubscribe = null;
+
+// Получаем текущего пользователя и сохраняем его логин в базе (если еще не сохранён)
+firebase.auth().onAuthStateChanged(async user => {
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+    currentUser = user;
+    // Сохраняем логин в коллекцию users (если еще не было)
+    const userDoc = db.collection('users').doc(user.uid);
+    const doc = await userDoc.get();
+    if (!doc.exists) {
+        await userDoc.set({
+            uid: user.uid,
+            login: user.displayName || "",
+            email: user.email
+        });
+    }
+    // Отображаем логин пользователя
+    document.getElementById('myLogin').textContent = "Ваш логин: " + (user.displayName || "(не задан)");
+});
+
+// Поиск пользователя по логину
+document.getElementById('findUserBtn').onclick = async function() {
+    const login = document.getElementById('searchLogin').value.trim();
+    document.getElementById('status').textContent = '';
+    document.getElementById('chatWith').textContent = '';
+    document.getElementById('chatBlock').style.display = 'none';
+    if (!login) return;
+    const q = await db.collection('users').where('login', '==', login).get();
+    if (q.empty) {
+        document.getElementById('status').textContent = 'Пользователь не найден';
+        return;
+    }
+    chatUser = q.docs[0].data();
+    if (chatUser.uid === currentUser.uid) {
+        document.getElementById('status').textContent = 'Нельзя писать самому себе';
+        return;
+    }
+    document.getElementById('chatWith').textContent = 'Чат с: ' + chatUser.login;
+    document.getElementById('chatBlock').style.display = '';
+    openChat();
+};
+
+// Открытие чата и загрузка сообщений
+async function openChat() {
+    // chatId — уникальный для пары пользователей (например, uid1_uid2 по алфавиту)
+    chatId = [currentUser.uid, chatUser.uid].sort().join('_');
+    if (unsubscribe) unsubscribe();
+    const messagesDiv = document.getElementById('messages');
+    messagesDiv.innerHTML = 'Загрузка...';
+    unsubscribe = db.collection('chats').doc(chatId).collection('messages')
+        .orderBy('timestamp')
+        .onSnapshot(snapshot => {
+            messagesDiv.innerHTML = '';
+            snapshot.forEach(doc => {
+                const msg = doc.data();
+                const div = document.createElement('div');
+                div.className = 'msg ' + (msg.from === currentUser.uid ? 'me' : 'other');
+                div.textContent = (msg.from === currentUser.uid ? 'Вы: ' : chatUser.login + ': ') + msg.text;
+                messagesDiv.appendChild(div);
+            });
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+}
+
+// Отправка сообщения
+document.getElementById('sendBtn').onclick = async function() {
+    const text = document.getElementById('msgInput').value.trim();
+    if (!text || !chatId) return;
+    await db.collection('chats').doc(chatId).collection('messages').add({
+        text,
+        from: currentUser.uid,
+        to: chatUser.uid,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    document.getElementById('msgInput').value = '';
+};
+</script>
+</body>
+</html>
