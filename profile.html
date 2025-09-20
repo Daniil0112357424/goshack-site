@@ -305,9 +305,10 @@
         <div id="chatsList"></div>
     </div>
     <div class="main-block">
-        <div class="search-block">
-            <input type="text" id="searchLogin" placeholder="Логин пользователя">
+        <div class="search-block" style="position:relative;">
+            <input type="text" id="searchLogin" placeholder="Логин пользователя" autocomplete="off">
             <button id="findUserBtn">Найти</button>
+            <div id="onlineUsersList" style="display:none; position:absolute; top:110%; left:0; right:0; background:#fff; border:1px solid #e0e0e0; border-radius:8px; z-index:10; max-height:220px; overflow-y:auto; box-shadow:0 2px 12px #0002;"></div>
         </div>
         <div id="chatWith"></div>
         <div class="chat-block" id="chatBlock" style="display:none;">
@@ -467,6 +468,78 @@ document.getElementById('sendBtn').onclick = async function() {
     }, {merge:true});
     loadChatsList();
 };
+
+// 1. Реализация "пользователи в сети" (онлайн)
+// Для простоты: пользователь считается "в сети", если обновил свой статус за последние 60 секунд
+
+const ONLINE_TIMEOUT = 60 * 1000; // 60 секунд
+
+// Обновляем статус онлайн каждые 30 секунд
+setInterval(() => {
+    if (currentUser) {
+        db.collection('users').doc(currentUser.uid).update({
+            lastOnline: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    }
+}, 30000);
+
+// При входе на страницу сразу обновляем статус онлайн
+firebase.auth().onAuthStateChanged(async user => {
+    // ...существующий код...
+    if (user) {
+        await db.collection('users').doc(user.uid).update({
+            lastOnline: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    }
+    // ...существующий код...
+});
+
+// 2. Выпадающий список пользователей в сети при фокусе на поле поиска
+
+const searchInput = document.getElementById('searchLogin');
+const onlineUsersList = document.getElementById('onlineUsersList');
+
+searchInput.addEventListener('focus', async function() {
+    // Получаем пользователей, которые были онлайн за последние 60 секунд и не текущий пользователь
+    const now = Date.now();
+    const minTime = new Date(now - ONLINE_TIMEOUT);
+    const usersSnap = await db.collection('users')
+        .where('lastOnline', '>=', minTime)
+        .get();
+    let html = '';
+    usersSnap.forEach(doc => {
+        const user = doc.data();
+        if (user.uid !== currentUser.uid && user.login) {
+            html += `<div class="online-user-item" style="padding:9px 14px; cursor:pointer; border-bottom:1px solid #f0f0f0;" data-login="${user.login}">🟢 ${user.login}</div>`;
+        }
+    });
+    if (!html) html = `<div style="padding:9px 14px; color:#aaa;">Нет пользователей в сети</div>`;
+    onlineUsersList.innerHTML = html;
+    onlineUsersList.style.display = 'block';
+});
+
+// Скрывать список при потере фокуса (с небольшой задержкой, чтобы можно было кликнуть)
+searchInput.addEventListener('blur', function() {
+    setTimeout(() => { onlineUsersList.style.display = 'none'; }, 150);
+});
+
+// Клик по пользователю из списка — автозаполнение поиска
+onlineUsersList.addEventListener('mousedown', function(e) {
+    if (e.target.classList.contains('online-user-item')) {
+        searchInput.value = e.target.dataset.login;
+        onlineUsersList.style.display = 'none';
+        document.getElementById('findUserBtn').click();
+    }
+});
+
+// 3. Отправка сообщений по Enter
+const msgInput = document.getElementById('msgInput');
+msgInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById('sendBtn').click();
+    }
+});
 </script>
 </body>
 </html>
